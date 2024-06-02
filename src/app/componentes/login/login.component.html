@@ -1,0 +1,25 @@
+<div [formGroup]="loginForm" class="container-centralizado"  fxLayout="column">
+  <div class="example-container input-padrao">
+    <mat-form-field appearance="outline" input-padrao>
+      <mat-label>Digite seu email</mat-label>
+      <input matInput
+             placeholder="pat@example.com"
+            formControlName="email"
+             required>
+    </mat-form-field>
+  </div>
+
+  <div class="input-padrao">
+    <mat-form-field appearance="outline" >
+      <mat-label>Digite sua senha</mat-label>
+      <input matInput  [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button (click)="loginTeste()">Logar</button>
+
+
+</div>
