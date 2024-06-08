@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ errorMessage: any;
 
   hide:boolean = true
   loginForm:FormGroup
-  constructor(private fb:FormBuilder,private loginService:LoginService) {
+  constructor(private fb:FormBuilder,private loginService:LoginService, private router:Router) {
     this.loginForm = this.fb.group({
       email:[null,Validators.required],
       password:["",Validators.required]
@@ -20,6 +21,11 @@ errorMessage: any;
    }
 
   ngOnInit() {
+    let token = localStorage.getItem("token")
+
+    if(token !== null || token !== undefined){
+      this.router.navigate(["pagina-inicial"])
+    }
   }
 
   loginTeste(){
@@ -28,7 +34,7 @@ errorMessage: any;
       password: this.loginForm.value.password
     }
     this.loginService.login(login).subscribe({
-      next: result => console.log(result)
+      complete: () => this.router.navigate(["pagina-inicial"])
     })
   }
 }

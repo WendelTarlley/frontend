@@ -11,10 +11,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatIconModule} from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 //
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { Interceptor } from './Interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    Interceptor,{provide: HTTP_INTERCEPTORS,useClass: Interceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
